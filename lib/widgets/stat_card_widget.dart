@@ -21,53 +21,84 @@ class StatCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingMedium),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.3),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: SingleChildScrollView(
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+      child: Container(
+        padding: EdgeInsets.all(
+            isMobile ? AppConstants.paddingMedium : AppConstants.paddingLarge),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.3),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
+            ),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
           children: [
             // Title and Icon
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: AppConstants.fontSizeMedium,
-                      fontWeight: FontWeight.w500,
+                    style: TextStyle(
+                      fontSize: isMobile
+                          ? AppConstants.fontSizeSmall
+                          : AppConstants.fontSizeMedium,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.white,
+                      letterSpacing: 0.5,
                     ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                const SizedBox(width: AppConstants.paddingSmall),
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: EdgeInsets.all(isMobile ? 6 : 8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withOpacity(0.25),
                     borderRadius:
                         BorderRadius.circular(AppConstants.radiusSmall),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: FaIcon(
                     icon,
-                    size: 16,
+                    size: isMobile ? 14 : 16,
                     color: AppColors.white,
                   ),
                 ),
               ],
             ),
+
+            SizedBox(
+                height: isMobile
+                    ? AppConstants.paddingSmall
+                    : AppConstants.paddingMedium),
 
             // Value and Subtitle
             Row(
@@ -75,11 +106,12 @@ class StatCardWidget extends StatelessWidget {
               children: [
                 Text(
                   value,
-                  style: const TextStyle(
-                    fontSize: 32,
+                  style: TextStyle(
+                    fontSize: isMobile ? 28 : 36,
                     fontWeight: FontWeight.bold,
                     color: AppColors.white,
                     height: 1,
+                    letterSpacing: -1,
                   ),
                 ),
                 const SizedBox(width: AppConstants.paddingSmall),
@@ -88,9 +120,12 @@ class StatCardWidget extends StatelessWidget {
                   child: Text(
                     subtitle,
                     style: TextStyle(
-                      fontSize: AppConstants.fontSizeMedium,
-                      fontWeight: FontWeight.w400,
+                      fontSize: isMobile
+                          ? AppConstants.fontSizeSmall
+                          : AppConstants.fontSizeMedium,
+                      fontWeight: FontWeight.w500,
                       color: AppColors.white.withOpacity(0.9),
+                      letterSpacing: 0.3,
                     ),
                   ),
                 ),

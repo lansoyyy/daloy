@@ -1,3 +1,4 @@
+import 'package:daloy/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../utils/app_colors.dart';
@@ -128,10 +129,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
           // App title on mobile
           if (isMobile) ...[
-            Text(
-              'Daloy',
-              style: AppTextStyles.h5(color: AppColors.secondary),
+            // Logo Section
+            Padding(
+              padding: const EdgeInsets.only(top: 0, left: 0),
+              child: Image.asset(
+                AppAssets.logo,
+                height: 35,
+              ),
             ),
+
+            const SizedBox(height: AppConstants.paddingMedium),
           ],
 
           const Spacer(),

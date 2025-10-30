@@ -1,3 +1,4 @@
+import 'package:daloy/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../utils/app_colors.dart';
@@ -31,13 +32,19 @@ class _SidebarWidgetState extends State<SidebarWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Logo Section
-          _buildLogo(),
-          
-          const SizedBox(height: AppConstants.paddingLarge),
-          
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 10),
+            child: Image.asset(
+              AppAssets.logo,
+              height: 35,
+            ),
+          ),
+
+          const SizedBox(height: AppConstants.paddingMedium),
+
           // Project Related Section
           _buildSectionHeader('Project Related'),
-          
+
           _buildMenuItem(
             icon: FontAwesomeIcons.tableColumns,
             label: 'Projects',
@@ -74,12 +81,12 @@ class _SidebarWidgetState extends State<SidebarWidget> {
             isSelected: selectedMenu == 'Treasurer',
             onTap: () => setState(() => selectedMenu = 'Treasurer'),
           ),
-          
+
           const SizedBox(height: AppConstants.paddingLarge),
-          
+
           // Tools Section
           _buildSectionHeader('Tools'),
-          
+
           _buildMenuItem(
             icon: FontAwesomeIcons.comments,
             label: 'Chats',
@@ -92,81 +99,13 @@ class _SidebarWidgetState extends State<SidebarWidget> {
             isSelected: selectedMenu == 'Users',
             onTap: () => setState(() => selectedMenu = 'Users'),
           ),
-          
+
           const Spacer(),
         ],
       ),
     );
   }
-  
-  Widget _buildLogo() {
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-      child: Row(
-        children: [
-          // Logo Icon (placeholder)
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: AppColors.secondary,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 8,
-                  top: 12,
-                  child: Container(
-                    width: 24,
-                    height: 3,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 8,
-                  top: 18,
-                  child: Container(
-                    width: 24,
-                    height: 3,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 8,
-                  top: 24,
-                  child: Container(
-                    width: 24,
-                    height: 3,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: AppConstants.paddingMedium),
-          const Text(
-            'Daloy',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: AppColors.secondary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-  
+
   Widget _buildSectionHeader(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -184,7 +123,7 @@ class _SidebarWidgetState extends State<SidebarWidget> {
       ),
     );
   }
-  
+
   Widget _buildMenuItem({
     required IconData icon,
     required String label,
@@ -199,7 +138,9 @@ class _SidebarWidgetState extends State<SidebarWidget> {
           vertical: AppConstants.paddingMedium,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary.withOpacity(0.1) : Colors.transparent,
+          color: isSelected
+              ? AppColors.primary.withOpacity(0.1)
+              : Colors.transparent,
           border: Border(
             left: BorderSide(
               color: isSelected ? AppColors.primary : Colors.transparent,
